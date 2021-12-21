@@ -65,8 +65,9 @@ class CommandResolvingMiddleware(Middleware, LoggerAware):
 
         args = message.to_dict()
         args['_message'] = message
-
+        
         if str(message) not in self._command_handlers:
+            print('WE GOT COMMAND HANDLERS', self._command_handlers)
             raise ffd.ConfigurationError(f'No command handler registered for {message}')
 
         service = self._command_handlers[str(message)]
