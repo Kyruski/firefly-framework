@@ -71,7 +71,8 @@ class CommandResolvingMiddleware(Middleware, LoggerAware):
             raise ffd.ConfigurationError(f'No command handler registered for {message}')
 
         service = self._command_handlers[str(message)]
-
+        print('We got args', args)
+        print('We got service', service)
         if self._service_is_batch_capable(service) and self._batch_service.is_registered(service.__class__):
             self.debug('Deferring to batch service')
             return self._batch_service.handle(service, args)

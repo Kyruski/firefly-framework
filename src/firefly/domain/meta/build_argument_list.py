@@ -241,6 +241,7 @@ def build_argument_list(params: dict, obj: typing.Union[typing.Callable, type], 
             required = True
 
         type_ = types[name] if name in types else None
+        print('Line 244', params)
         if name in params:
             val = _check_special_types(params[name], type_)
             if val is not None:
@@ -274,6 +275,11 @@ def build_argument_list(params: dict, obj: typing.Union[typing.Callable, type], 
                     args[name] = params[name]
             else:
                 if name in params:
+                    print('params is', params)
+                    print('PARAMS in build argument, ', {name: params[name]})
+                    print('PARAMS in build argument, ', type_)
+                    print('PARAMS in build argument, ', name)
+                    print('PARAMS in build argument, ', required)
                     parameter_args = _handle_type_hint({name: params[name]}, type_, key=name, required=required)
                 elif isinstance(params, dict):
                     parameter_args = _handle_type_hint(copy_params(params, sig), type_, key=name, required=required)
