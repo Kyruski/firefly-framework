@@ -100,6 +100,11 @@ def _handle_type_hint(params: typing.Any, t: type, key: str = None, required: bo
 
     elif origin is typing.Union:
         for arg in args:
+            print('_handle_type_hint line 103', arg)
+            print('_handle_type_hint line 103', args)
+            print('_handle_type_hint line 103', params)
+            print('_handle_type_hint line 103', key)
+            print('_handle_type_hint line 103', required)
             # logging.debug('Calling _handle_type_hint')
             r = _handle_type_hint(params, arg, key, required)
             # logging.debug('Response: %s', r)
@@ -113,6 +118,11 @@ def _handle_type_hint(params: typing.Any, t: type, key: str = None, required: bo
     else:
         if inspect.isclass(t) and issubclass(t, ffd.ValueObject):
             if key in params:
+                print('_handle_type_hint line 116')
+                print('_handle_type_hint line 116', key)
+                print('_handle_type_hint line 116', params)
+                print('_handle_type_hint line 116', params[key])
+                print('_handle_type_hint line 116', t)
                 return _build_value_object(params[key], t, required)
             else:
                 return _build_value_object(params, t, required)
@@ -153,6 +163,9 @@ def _build_value_object(obj, type_, required):
         pass
 
     try:
+        print('_build_value_object', obj)
+        print('_build_value_object', type_)
+        print('_build_value_object', required)
         e = _generate_model(obj, type_)
         if e is False and required is True:
             raise ffd.MissingArgument()
@@ -164,6 +177,10 @@ def _build_value_object(obj, type_, required):
 
 
 def _generate_model(args: dict, model_type: type, strict: bool = False):
+    print('_generate_model')
+    print('_generate_model', args)
+    print('_generate_model', model_type)
+    print('_generate_model', strict)
     subclasses = model_type.__subclasses__()
     if len(subclasses):
         for subclass in subclasses:
@@ -172,6 +189,10 @@ def _generate_model(args: dict, model_type: type, strict: bool = False):
             except RuntimeError:
                 continue
 
+    print('_generate_model222')
+    print('_generate_model222', args)
+    print('_generate_model222', model_type)
+    print('_generate_model222', strict)
     entity_args = build_argument_list(args, model_type)
     if strict:
         for k in args.keys():
