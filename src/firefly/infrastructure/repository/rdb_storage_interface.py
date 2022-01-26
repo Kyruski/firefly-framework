@@ -84,14 +84,17 @@ class RdbStorageInterface(AbstractStorageInterface, ABC):
         sql, params = self._generate_select(
             entity_type, criteria, limit=limit, offset=offset, sort=sort, count=count
         )
+        print('WE GOT SQLQLLQLQLQLLQ', sql)
+        print('WE GOT SQLQLLQLQLQLLQ', params)
         results = self._execute(sql, params)
 
         ret = []
         if count:
             return results[0]['c']
-
+        print('resresres', results)
         for row in results:
             self.debug('Result row: %s', dict(row))
+            print('Result row: %s', dict(row))
             ret.append(self._build_entity(entity_type, row, raw=raw))
 
         return ret
