@@ -259,6 +259,7 @@ class RdbStorageInterface(AbstractStorageInterface, ABC):
             data = self._serializer.deserialize(data['document'])
 
         for k, v in self._get_relationships(entity).items():
+            print('RDB Intefrace kv', k, v)
             if v['this_side'] == 'one':
                 data[k] = self._registry(v['target']).find(data[k])
             elif v['this_side'] == 'many':
