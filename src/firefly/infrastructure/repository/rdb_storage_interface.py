@@ -289,6 +289,13 @@ class RdbStorageInterface(AbstractStorageInterface, ABC):
         def mapped_fields(e):
             return self.get_entity_columns(e)
 
+        print('THESE ARE THE ITEMS')
+        print(entity)
+        print('\n')
+        print(template)
+        print('\n')
+        print(params)
+        print('\n')
         template = self._j.env.select_template([template, '/'.join(['sql', template.split('/')[1]])])
         data = {
             'fqtn': self._fqtn(entity),
