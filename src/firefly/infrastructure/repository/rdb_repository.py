@@ -90,6 +90,7 @@ class RdbRepository(AbstractRepository[T]):
         return ret
 
     def filter(self, x: Union[Callable, ffd.BinaryOp], **kwargs) -> RdbRepository:
+        print('WE RUNNING A FILTER', kwargs)
         self._query_details.update(kwargs)
         self._query_details['criteria'] = x
 
@@ -194,7 +195,7 @@ class RdbRepository(AbstractRepository[T]):
 
         if 'criteria' not in query_details:
             query_details['criteria'] = None
-        print('RDB REPO query_details', query_details)
+        print('RDB REPO query_details', query_details['criteria'].__dict__)
         results = self._do_filter(**query_details)
         if 'raw' in query_details and query_details['raw'] is True:
             return results

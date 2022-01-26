@@ -260,6 +260,7 @@ class RdbStorageInterface(AbstractStorageInterface, ABC):
 
         for k, v in self._get_relationships(entity).items():
             print('RDB Intefrace kv', k, v)
+            print('RDB Intefrace kv data', data[k])
             if v['this_side'] == 'one':
                 data[k] = self._registry(v['target']).find(data[k])
             elif v['this_side'] == 'many':

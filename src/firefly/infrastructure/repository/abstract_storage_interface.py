@@ -51,6 +51,8 @@ class AbstractStorageInterface(ffd.LoggerAware, ABC):
     def all(self, entity_type: Type[ffd.Entity], criteria: ffd.BinaryOp = None, limit: int = None, offset: int = None,
             sort: Tuple[Union[str, Tuple[str, bool]]] = None, raw: bool = False, count: bool = False):
         self._check_prerequisites(entity_type)
+        print('IN ABSTRACT', entity_type)
+        print('IN ABSTRACT', criteria)
         return self._all(entity_type, criteria, limit, offset, raw=raw, count=count, sort=sort)
 
     @abstractmethod
