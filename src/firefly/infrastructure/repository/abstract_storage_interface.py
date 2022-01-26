@@ -159,23 +159,34 @@ class AbstractStorageInterface(ffd.LoggerAware, ABC):
         return data
 
     def _serialize_entity(self, entity: ffd.Entity):
+        print('serializing entity', entity)
         relationships = self._get_relationships(entity.__class__)
+        print('relationships', relationships)
         if len(relationships.keys()) > 0:
             obj = entity.to_dict(force_all=True, skip=list(relationships.keys()))
+            print('we got obj', obj)
             for k, v in relationships.items():
+                print('kv pair', k, v)
                 if v['this_side'] == 'one':
                     try:
+                        print('Hi', getattr(entity, k))
                         obj[k] = getattr(entity, k).id_value()
+                        print('we good')
                     except AttributeError:
+                        print('WE GOT NONE')
                         obj[k] = None
                 elif v['this_side'] == 'many':
                     obj[k] = []
                     for f in getattr(entity, k):
                         try:
+                            print('testing', f)
                             obj[k].append(f.id_value())
+                            print('testing', f.id_value())
                         except AttributeError:
+                            print('Did we lose?')
                             obj[k].append(None)
         else:
+            print('tttttt')
             obj = entity.to_dict(force_all=True)
-
+        print('obj isssssss', obj)
         return self._serializer.serialize(obj)
