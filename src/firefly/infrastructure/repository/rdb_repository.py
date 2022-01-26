@@ -195,7 +195,9 @@ class RdbRepository(AbstractRepository[T]):
 
         if 'criteria' not in query_details:
             query_details['criteria'] = None
-        print('RDB REPO query_details', query_details['criteria'].__dict__)
+        print('RDB REPO query_details', query_details)
+        if 'criteria' in query_details:
+            print('RDB REPO query_details criteria', query_details['criteria'].__dict__)
         results = self._do_filter(**query_details)
         if 'raw' in query_details and query_details['raw'] is True:
             return results
